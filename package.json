@@ -1,5 +1,5 @@
 {
-  "name": "red-contrib-bizwechat",
+  "name": "node-red-contrib-bizwechat",
   "version": "1.0.0",
   "description": "企业微信消息接收转发至NodeRed",
   "main": "index.js",
