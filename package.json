@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/FlashSoft/node-red-contrib-bizwechat/issues"
   },
-  "homepage": "https://github.com/FlashSoft/node-red-contrib-bizwechat#readme"
+  "homepage": "https://github.com/FlashSoft/node-red-contrib-bizwechat#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "wechat-crypto": "0.0.2",
+    "xml2js": "^0.4.19"
+  }
 }

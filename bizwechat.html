@@ -1,0 +1,71 @@
+<script type="text/javascript">
+  RED.nodes.registerType('bizwechat-input', {
+    category: '企业微信',
+    color: '#7ac6cb',
+    paletteLabel: '服务端',
+    label() {
+      return this.name || '服务端'
+    },
+    defaults: {
+      name: {
+        value: ''
+      },
+      cropid: {
+        value: '',
+        required: true
+      },
+      token: {
+        value: '',
+        required: true
+      },
+      aeskey: {
+        value: '',
+        required: true
+      },
+      port: {
+        value: '',
+        required: true
+      }
+    },
+    inputs: 0,
+    outputs: 1,
+    icon: 'white-globe.png',
+  })
+  RED.nodes.registerType('bizwechat-output', {
+    category: '企业微信',
+    color: '#7ac6cb',
+    paletteLabel: '输出',
+    label() {
+      return this.name || '输出'
+    },
+    defaults: {},
+    inputs: 1,
+    outputs: 0,
+    icon: 'white-globe.png',
+    align: 'right'
+  })
+</script>
+<script type="text/x-red" data-template-name="bizwechat-input">
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i>名称</label>
+    <input type="text" id="node-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-input-port"><i></i>port</label>
+    <input type="text" id="node-input-port" placeholder="本服务端口">
+  </div>
+  <div class="form-row">
+    <label for="node-input-cropid"><i></i>Cropid</label>
+    <input type="text" id="node-input-cropid" placeholder="企业ID">
+  </div>
+  <div class="form-row">
+    <label for="node-input-token"><i></i>Token</label>
+    <input type="text" id="node-input-token" placeholder="自建应用Token">
+  </div>
+  <div class="form-row">
+    <label for="node-input-aeskey"><i></i>AESKey</label>
+    <input type="text" id="node-input-aeskey" placeholder="自建应用EncodingAESKey">
+  </div>
+</script>
+<script type="text/x-red" data-help-name="bizwechat-input">
+</script>
