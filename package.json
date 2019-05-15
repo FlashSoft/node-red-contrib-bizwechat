@@ -8,6 +8,8 @@
     "url": "git+https://github.com/FlashSoft/node-red-contrib-bizwechat.git"
   },
   "keywords": [
+    "node-red",
+    "nodered",
     "NodeRed",
     "WeChat"
   ],
