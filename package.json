@@ -1,0 +1,25 @@
+{
+  "name": "red-contrib-bizwechat",
+  "version": "1.0.0",
+  "description": "企业微信消息接收转发至NodeRed",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlashSoft/node-red-contrib-bizwechat.git"
+  },
+  "keywords": [
+    "NodeRed",
+    "WeChat"
+  ],
+  "node-red": {
+    "nodes": {
+      "bizwechat": "bizwechat.js"
+    }
+  },
+  "author": "FlashSoft",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/FlashSoft/node-red-contrib-bizwechat/issues"
+  },
+  "homepage": "https://github.com/FlashSoft/node-red-contrib-bizwechat#readme"
+}
