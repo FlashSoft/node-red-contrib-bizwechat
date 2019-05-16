@@ -1,0 +1,72 @@
+<script type="text/javascript">
+    RED.nodes.registerType('bizwechat-configurator', {
+        category: 'config',
+        label() {
+            return this.name || '默认企业微信配置'
+        },
+        defaults: {
+            name: {
+                value: ''
+            },
+            port: {
+                value: '',
+                required: true
+            },
+            cropid: {
+                value: '',
+                required: true
+            },
+            agentid: {
+                value: '',
+                required: true
+            },
+            token: {
+                value: '',
+                required: true
+            },
+            corpsecret: {
+                value: '',
+                required: true
+            },
+            aeskey: {
+                value: '',
+                required: true
+            },
+            
+        }
+    })
+</script>
+<script type="text/x-red" data-template-name="bizwechat-configurator">
+    <div class="form-row">
+      <label for="node-config-input-name"><i class="icon-tag"></i>名称</label>
+      <input type="text" id="node-config-input-name" placeholder="默认企业微信配置">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-port"><i></i>port</label>
+      <input type="text" id="node-config-input-port" placeholder="本服务端口">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-cropid"><i></i>Cropid</label>
+      <input type="text" id="node-config-input-cropid" placeholder="企业ID">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-agentid"><i></i>Agentid</label>
+        <input type="text" id="node-config-input-agentid" placeholder="应用ID">
+      </div>
+    <div class="form-row">
+      <label for="node-config-input-token"><i></i>Token</label>
+      <input type="text" id="node-config-input-token" placeholder="自建应用Token">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-corpsecret"><i></i>Secret</label>
+        <input type="text" id="node-config-input-corpsecret" placeholder="自建应用Secret">
+      </div>
+    <div class="form-row">
+      <label for="node-config-input-aeskey"><i></i>AESKey</label>
+      <input type="text" id="node-config-input-aeskey" placeholder="自建应用EncodingAESKey">
+    </div>
+  </script>
+<script type="text/x-red" data-help-name="bizwechat-configurator">
+  
+
+</script>
