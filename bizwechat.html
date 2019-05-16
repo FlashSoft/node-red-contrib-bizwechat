@@ -10,22 +10,11 @@
       name: {
         value: ''
       },
-      cropid: {
+      bizwechat: {
         value: '',
-        required: true
+        type: 'bizwechat-configurator'
       },
-      token: {
-        value: '',
-        required: true
-      },
-      aeskey: {
-        value: '',
-        required: true
-      },
-      port: {
-        value: '',
-        required: true
-      }
+      
     },
     inputs: 0,
     outputs: 1,
@@ -38,7 +27,16 @@
     label() {
       return this.name || '输出'
     },
-    defaults: {},
+    defaults: {
+      name: {
+        value: ''
+      },
+      bizwechat: {
+        value: '',
+        type: 'bizwechat-configurator'
+      },
+      
+    },
     inputs: 1,
     outputs: 0,
     icon: 'white-globe.png',
@@ -47,25 +45,26 @@
 </script>
 <script type="text/x-red" data-template-name="bizwechat-input">
   <div class="form-row">
+    <label for="node-input-bizwechat"><i class="icon-tag"></i>配置</label>
+    <input type="text" id="node-input-bizwechat">
+  </div>
+  <div class="form-row">
     <label for="node-input-name"><i class="icon-tag"></i>名称</label>
     <input type="text" id="node-input-name">
   </div>
-  <div class="form-row">
-    <label for="node-input-port"><i></i>port</label>
-    <input type="text" id="node-input-port" placeholder="本服务端口">
-  </div>
-  <div class="form-row">
-    <label for="node-input-cropid"><i></i>Cropid</label>
-    <input type="text" id="node-input-cropid" placeholder="企业ID">
-  </div>
-  <div class="form-row">
-    <label for="node-input-token"><i></i>Token</label>
-    <input type="text" id="node-input-token" placeholder="自建应用Token">
-  </div>
-  <div class="form-row">
-    <label for="node-input-aeskey"><i></i>AESKey</label>
-    <input type="text" id="node-input-aeskey" placeholder="自建应用EncodingAESKey">
-  </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-input">
+</script>
+
+<script type="text/x-red" data-template-name="bizwechat-output">
+  <div class="form-row">
+    <label for="node-input-bizwechat"><i class="icon-tag"></i>配置</label>
+    <input type="text" id="node-input-bizwechat">
+  </div>
+  <div class="form-row">
+    <label for="node-input-name"><i class="icon-tag"></i>名称</label>
+    <input type="text" id="node-input-name">
+  </div>
+</script>
+<script type="text/x-red" data-help-name="bizwechat-output">
 </script>

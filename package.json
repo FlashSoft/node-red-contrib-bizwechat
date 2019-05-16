@@ -15,7 +15,9 @@
   ],
   "node-red": {
     "nodes": {
-      "bizwechat": "bizwechat.js"
+      "bizwechat": "bizwechat.js",
+      "bizwechat-configurator": "bizwechat-configurator.js"
+
     }
   },
   "author": "FlashSoft",

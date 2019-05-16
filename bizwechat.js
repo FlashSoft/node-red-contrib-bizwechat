@@ -93,14 +93,14 @@ module.exports = RED => {
     constructor(config) {
       const node = this
       RED.nodes.createNode(node, config)
-      console.log('in config', config)
+      const bizwechat = RED.nodes.getNode(config.bizwechat);
+      this.newConfig = Object.assign({}, bizwechat, config)
       // 建立server
-      const server = createServer(config, node, (res, req, message) => node.send({
-        res,
-        req,
-        config,
-        message
-      }))
+      const server = createServer(this.newConfig, node, (res, req, message) => {
+            node.send({res, req, config: this.newConfig, message })
+          }
+        )
+       
       server.on('error', ({
         message
       }) => {
