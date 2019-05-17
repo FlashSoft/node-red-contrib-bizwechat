@@ -1,46 +1,50 @@
 <script type="text/javascript">
-  RED.nodes.registerType('bizwechat-configurator', {
-    category: 'config',
-    label () {
-      return this.name || '默认企业微信配置'
+RED.nodes.registerType('bizwechat-configurator', {
+  category: 'config',
+  label () {
+    return this.name || '默认企业微信配置'
+  },
+  defaults: {
+    name: {
+      value: ''
     },
-    defaults: {
-      name: {
-        value: ''
-      },
-      port: {
-        value: '',
-        required: true
-      },
-      corpid: {
-        value: '',
-        required: true
-      },
-      agentid: {
-        value: '',
-        required: true
-      },
-      token: {
-        value: '',
-        required: true
-      },
-      corpsecret: {
-        value: '',
-        required: true
-      },
-      aeskey: {
-        value: '',
-        required: true
-      },
-      client_id:{
-        value:''
-      },
-      client_secret:{
-        value:''
-      }
+    port: {
+      value: '',
+      required: true
+    },
+    corpid: {
+      value: '',
+      required: true
+    },
+    agentid: {
+      value: '',
+      required: true
+    },
+    corpsecret: {
+      value: '',
+      required: true
+    },
+    url: {
+      value: '',
+      required: true
+    },
+    token: {
+      value: '',
+      required: true
+    },
+    aeskey: {
+      value: '',
+      required: true
+    },
+    client_id: {
+      value: ''
+    },
+    client_secret: {
+      value: ''
     }
-  })
-  </script>
+  }
+})
+</script>
   <script type="text/x-red" data-template-name="bizwechat-configurator">
     <div class="form-row">
       <label for="node-config-input-name"><i class="icon-tag"></i>名称</label>
@@ -61,6 +65,10 @@
     <div class="form-row">
       <label for="node-config-input-corpsecret"><i></i>Secret</label>
       <input type="text" id="node-config-input-corpsecret" placeholder="微信应用Secret">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-url"><i></i>Url</label>
+      <input type="text" id="node-config-input-url" placeholder="微信应用回调URL(http或https开头)">
     </div>
     <div class="form-row">
       <label for="node-config-input-token"><i></i>Token</label>

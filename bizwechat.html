@@ -1,82 +1,115 @@
 <script type="text/javascript">
-  RED.nodes.registerType('bizwechat-input', {
-    category: '企业微信',
-    color: '#7ac6cb',
-    paletteLabel: '服务端',
-    label() {
-      return this.name || '服务端'
+RED.nodes.registerType('bizwechat-input', {
+  category: '企业微信',
+  color: '#7ac6cb',
+  paletteLabel: '服务端',
+  label () {
+    return this.name || '服务端'
+  },
+  defaults: {
+    name: {
+      value: ''
     },
-    defaults: {
-      name: {
-        value: ''
-      },
-      bizwechat: {
-        value: '',
-        type: 'bizwechat-configurator'
-      }
+    bizwechat: {
+      value: '',
+      type: 'bizwechat-configurator'
+    }
+  },
+  inputs: 0,
+  outputs: 1,
+  icon: 'white-globe.png'
+})
+RED.nodes.registerType('bizwechat-output', {
+  category: '企业微信',
+  color: '#7ac6cb',
+  paletteLabel: '输出',
+  label () {
+    return this.name || '输出'
+  },
+  defaults: {
+    name: {
+      value: ''
     },
-    inputs: 0,
-    outputs: 1,
-    icon: 'white-globe.png',
-  })
-  RED.nodes.registerType('bizwechat-output', {
-    category: '企业微信',
-    color: '#7ac6cb',
-    paletteLabel: '输出',
-    label() {
-      return this.name || '输出'
-    },
-    defaults: {
-      name: {
-        value: ''
-      },
-      bizwechat: {
-        value: '',
-        type: 'bizwechat-configurator'
-      },
+    bizwechat: {
+      value: '',
+      type: 'bizwechat-configurator'
+    }
 
+  },
+  inputs: 1,
+  outputs: 0,
+  icon: 'white-globe.png',
+  align: 'right'
+})
+RED.nodes.registerType('bizwechat-pushbear', {
+  category: '企业微信',
+  color: '#7ac6cb',
+  paletteLabel: '推送',
+  label () {
+    return this.name || '推送'
+  },
+  defaults: {
+    name: {
+      value: ''
     },
-    inputs: 1,
-    outputs: 0,
-    icon: 'white-globe.png',
-    align: 'right'
-  })
-  RED.nodes.registerType('bizwechat-pushbear', {
-    category: '企业微信',
-    color: '#7ac6cb',
-    paletteLabel: '推送',
-    label() {
-      return this.name || '推送'
+    bizwechat: {
+      value: '',
+      type: 'bizwechat-configurator'
     },
-    defaults: {
-      name: {
-        value: ''
-      },
-      bizwechat: {
-        value: '',
-        type: 'bizwechat-configurator'
-      },
-      touser: {
-        value: ''
-      },
-
-      toparty: {
-        value: ''
-      },
-
-      title: {
-        value: ''
-      },
-
-      description: {
-        value: ''
-      },
-
+    touser: {
+      value: ''
     },
-    inputs: 1,
-    outputs: 1,
-    icon: 'white-globe.png',
-  })
+
+    toparty: {
+      value: ''
+    },
+
+    title: {
+      value: ''
+    },
+
+    description: {
+      value: ''
+    }
+
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'white-globe.png'
+})
+
+RED.nodes.registerType('bizwechat-pushbear', {
+  category: '企业微信',
+  color: '#7ac6cb',
+  paletteLabel: '推送',
+  label () {
+    return this.name || '推送'
+  },
+  defaults: {
+    name: {
+      value: ''
+    },
+    bizwechat: {
+      value: '',
+      type: 'bizwechat-configurator'
+    },
+    touser: {
+      value: ''
+    },
+    toparty: {
+      value: ''
+    },
+    title: {
+      value: ''
+    },
+    description: {
+      value: ''
+    }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'white-globe.png'
+})
 </script>
 <script type="text/x-red" data-template-name="bizwechat-input">
   <div class="form-row">
@@ -104,7 +137,6 @@
 <script type="text/x-red" data-help-name="bizwechat-output">
 </script>
 
-
 <script type="text/x-red" data-template-name="bizwechat-pushbear">
   <div class="form-row">
     <label for="node-input-bizwechat"><i class="icon-tag"></i>配置</label>
@@ -114,28 +146,18 @@
     <label for="node-input-name"><i class="icon-tag"></i>名称</label>
     <input type="text" id="node-input-name">
   </div>
-
   <div class="form-row">
     <label for="node-input-touser"><i class="icon-tag"></i>接收者</label>
     <input type="text" id="node-input-touser" placeholder="接收者账号，多个使用|分割，不填写默认全部接收">
   </div>
-
-  <div class="form-row">
-    <label for="node-input-toparty"><i class="icon-tag"></i>部门</label>
-    <input type="text" id="node-input-toparty" placeholder="接收部门，多个使用|分割">
-  </div>
-
   <div class="form-row">
     <label for="node-input-title"><i class="icon-tag"></i>标题</label>
     <input type="text" id="node-input-title" placeholder="发送信息的标题">
   </div>
-
   <div class="form-row">
     <label for="node-input-description"><i class="icon-tag"></i>内容</label>
-    <input type="text" id="node-input-description" placeholder="发送信息的内容">
+    <textarea id="node-input-description" placeholder="发送信息的内容(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
   </div>
-
-
 </script>
 <script type="text/x-red" data-help-name="bizwechat-pushbear">
 </script>
