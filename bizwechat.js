@@ -1,160 +1,8 @@
-const fs = require('fs')
-const express = require('express')
 const WXBizMsgCrypt = require('wechat-crypto')
-const Xml2js = require('xml2js')
-const axios = require('axios')
-const wechatCode = require('./lib/code/bizwechat')
-const baiduvopCode = require('./lib/code/baiduvop')
 
-// 获取企业微信token
-const getWechatToken = async ({ corpid, corpsecret }) => new Promise(async (resolve, reject) => {
-  try {
-    const { data } = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/gettoken', {
-      params: { corpid, corpsecret }
-    }).catch(err => {
-      throw new Error(`[微信Token]:${err}`)
-    })
-    if (data.errcode != 0) {
-      const msg = wechatCode[data.errcode] || data.errmsg
-      throw (new Error(`[微信Token]${msg}`))
-    }
-    resolve(data.access_token)
-  } catch (err) { reject(err) }
-})
-// 获取企业微信媒体内容
-const getWechatMedia = async (config, media_id) => new Promise(async (resolve, reject) => {
-  try {
-    const access_token = await getWechatToken(config)
-    const result = await axios.get('https://qyapi.weixin.qq.com/cgi-bin/media/get', {
-      params: { access_token, media_id },
-      responseType: 'arraybuffer'
-    }).catch(err => {
-      throw new Error(`[微信媒体]${err}`)
-    })
-    if (result.data.errcode != null && result.data.errcode != 0) {
-      const msg = wechatCode[result.data.errcode] || result.data.errmsg
-      throw (new Error(`[微信媒体]${msg}`))
-    }
-    if (result.headers['error-msg']) {
-      const msg = wechatCode[result.headers['error-code']] || result.headers['error-msg']
-      throw (new Error(`[微信媒体]${msg}`))
-    }
-    resolve(result.data)
-  } catch (err) { reject(err) }
-})
-// 获取百度token
-const getBaiduToken = async ({ client_id, client_secret }) => new Promise(async (resolve, reject) => {
-  try {
-    const { data } = await axios.get('https://aip.baidubce.com/oauth/2.0/token', {
-      params: { grant_type: 'client_credentials', client_id, client_secret }
-    }).catch(err => {
-      throw new Error(`[百度Token]${err}`)
-    })
-    if (!data.access_token) {
-      reject(new Error('[百度Token]token获取失败'))
-    }
-    resolve(data.access_token)
-  } catch (err) { reject(err) }
-})
-// 获取百度Asr结果
-const getBaiduAsr = async (config, amr) => new Promise(async (resolve, reject) => {
-  try {
-    const token = await getBaiduToken(config)
-    const { data } = await axios.post('https://vop.baidu.com/server_api', amr, {
-      params: { dev_pid: 1537, token, cuid: 12345 },
-      headers: { 'Content-Type': 'audio/amr;rate=8000' }
-    }).catch(err => {
-      throw new Error(`[百度Asr]${err}`)
-    })
-    if (data.err_no > 0) {
-      const msg = baiduvopCode[data.err_no] || data.err_msg
-      throw new Error(`[百度Asr]${msg}`)
-    }
-    resolve(data.result)
-  } catch (err) { reject(err) }
-})
-
-// 接收数据
-const receiveData = async (req) => new Promise(resolve => {
-  const buffer = []
-  req.on('data', trunk => buffer.push(trunk))
-  req.on('end', trunk => resolve(Buffer.concat(buffer).toString('utf-8')))
-})
-// 解析XML成Json
-const parseXML = async (xml) => new Promise(resolve => {
-  Xml2js.parseString(xml, {
-    trim: true,
-    explicitArray: false,
-    ignoreAttrs: true
-  }, (err, result) => resolve(result.xml, err))
-})
-// 生成回复消息
-const getReplyXML = (from, to, msg) => {
-  return `
-  <xml>
-    <ToUserName><![CDATA[${from}]]></ToUserName>
-    <FromUserName><![CDATA[${to}]]></FromUserName>
-    <CreateTime>${new Date().getTime()}</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[${msg}]]></Content>
-  </xml>
-  `
-}
-// 生成加密回复消息
-const getSendXML = (config, fromUsername, toUsername, msg) => {
-  const xml = getReplyXML(fromUsername, toUsername, msg)
-  const cryptor = new WXBizMsgCrypt(config.token, config.aeskey, config.corpid)
-  const encrypt = cryptor.encrypt(xml)
-  const nonce = parseInt((Math.random() * 100000000000), 10)
-  const timestamp = new Date().getTime()
-  const signature = cryptor.getSignature(timestamp, nonce, encrypt)
-  return `
-  <xml>
-    <Encrypt><![CDATA[${encrypt}]]></Encrypt>
-    <MsgSignature><![CDATA[${signature}]]></MsgSignature>
-    <TimeStamp>${timestamp}</TimeStamp>
-    <Nonce><![CDATA[${nonce}]]></Nonce>
-  </xml>
-  `
-}
-// 创建服务
-const createServer = (config, node, callback = () => {}) => {
-  const app = express()
-  app.use('/', async (req, res) => {
-    const method = req.method
-    const sVerifyMsgSig = req.query.msg_signature
-    const sVerifyTimeStamp = req.query.timestamp
-    const sVerifyNonce = req.query.nonce
-    const sVerifyEchoStr = decodeURIComponent(req.query.echostr)
-    const cryptor = new WXBizMsgCrypt(config.token, config.aeskey, config.corpid)
-    if (method == 'GET') {
-      // === 回调校验用 ==========
-      const MsgSig = cryptor.getSignature(sVerifyTimeStamp, sVerifyNonce, sVerifyEchoStr)
-      if (sVerifyMsgSig == MsgSig) {
-        const sEchoStr = cryptor.decrypt(sVerifyEchoStr).message
-        res.send(sEchoStr)
-      } else {
-        res.send('服务正常')
-      }
-    } else {
-      // === 正常通讯消息 ==========
-      // 接收消息
-      const message = await receiveData(req)
-      // 解析xml数据
-      const result = await parseXML(message)
-      // 解密消息
-      const decrypt_message = cryptor.decrypt(result.Encrypt)
-      // 解析消息xml数据
-      const json_message = await parseXML(decrypt_message.message)
-      // 回调解析的消息
-      callback(res, req, json_message)
-    }
-  })
-  return app.listen(config.port, () => {
-    node.status({ text: `port: ${config.port}`, fill: 'green', shape: 'dot' })
-    node.log(`listening on port ${config.port}`)
-  })
-}
+const Server = require('./lib/Server')
+const WeChat = require('./lib/WeChat')
+const Baidu = require('./lib/Baidu')
 module.exports = RED => {
   // 输入节点
   RED.nodes.registerType('bizwechat-input', class {
@@ -162,34 +10,47 @@ module.exports = RED => {
       const node = this
       RED.nodes.createNode(node, config)
 
-      // 从配置服务里获取信息
-      const bizwechat_config = RED.nodes.getNode(config.bizwechat)
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('in biz_config', biz_config)
 
-      console.log('in config', bizwechat_config)
+      const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+      const wx = new WeChat(node, biz_config, cryptor)
+      const bd = new Baidu(node, biz_config)
 
-      // 建立server
-      const server = createServer(bizwechat_config, node, async (res, req, message) => {
-        try {
-          console.log(`receive message: ${JSON.stringify(message)}`)
-          if (message.MsgType == 'voice') {
-            const amr = await getWechatMedia(bizwechat_config, message.MediaId)
-            const asr = await getBaiduAsr(bizwechat_config, amr)
-            console.log('ASR内容', asr)
-            message.asr = asr && asr[0]
+      const server = new Server(biz_config.port, () => {
+        node.status({ text: `port: ${biz_config.port}`, fill: 'green', shape: 'dot' })
+        node.log(`listening on port ${biz_config.port}`)
+      })
+      server.use('/', async (req, res) => {
+        if (req.method == 'GET') {
+          // === 回调校验用 ==========
+          const sVerifyEchoStr = decodeURIComponent(req.query.echostr)
+          if (req.query.msg_signature == cryptor.getSignature(req.query.timestamp, req.query.nonce, sVerifyEchoStr)) {
+            res.send(cryptor.decrypt(sVerifyEchoStr).message)
+          } else {
+            res.send('服务正常')
           }
-          node.status({ text: `${message.MsgType}(${message.MsgId})` })
-          node.send({ res, req, config: bizwechat_config, message })
-        } catch (err) {
-          node.status({ text: err.message, fill: 'red', shape: 'ring' })
-          node.warn(err)
-          res.end('')
+        } else {
+          // === 正常通讯消息 ==========
+          try {
+            const message = await wx.getMessage(req)
+            console.log(`receive message: ${JSON.stringify(message)}`)
+            if (message.MsgType == 'voice') {
+              const amr = await wx.getMedia(message.MediaId)
+              const asr = await bd.getAsr(amr)
+              message.AsrContent = asr
+              console.log(`asr result: ${asr}`)
+            }
+            node.status({ text: `${message.MsgType}(${message.MsgId})` })
+            node.send({ res, req, config: biz_config, message })
+          } catch (err) {
+            node.status({ text: err.message, fill: 'red', shape: 'ring' })
+            node.warn(err)
+            res.end('')
+          }
         }
       })
-
-      server.on('error', ({ message }) => {
-        node.status({ text: message, fill: 'red', shape: 'ring' })
-      })
-      // 节点关闭时关闭server
+      server.on('error', ({ message }) => { node.status({ text: message, fill: 'red', shape: 'ring' }) })
       node.on('close', () => server.close())
     }
   })
@@ -198,14 +59,18 @@ module.exports = RED => {
     constructor (config) {
       const node = this
       RED.nodes.createNode(node, config)
-      // console.log('out config', config)
-      node.on('input', ({ res, req, payload, config: input_config, message }) => {
-        // console.log('out input_config', input_config)
+
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('out biz_config', biz_config)
+
+      node.on('input', data => {
+        const { res, message, payload } = data
         const { FromUserName, ToUserName } = message
-        // 发送反馈信息
+        const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+        const wx = new WeChat(node, biz_config, cryptor)
         if (payload) {
           console.log(`revert message: ${payload}`)
-          res.end(getSendXML(input_config, FromUserName, ToUserName, `${payload}`))
+          res.end(wx.getSendXML(FromUserName, ToUserName, `${payload}`))
         } else {
           console.log('no revert')
           res.end('')
