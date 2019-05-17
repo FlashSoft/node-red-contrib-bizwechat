@@ -7,9 +7,7 @@ const util = require('util')
 const readAsync = util.promisify(fs.readFile)
 
 
-
-
-router.get('/:id', async (req, res, next) => {
+router.get('/:date/:id', async (req, res, next) => {
     let content = await getSendTemplate(req)
     
     res.status(200).end(content)
@@ -17,21 +15,21 @@ router.get('/:id', async (req, res, next) => {
 })
 
 
-
 const getSendTemplate = async (req) => {
     let title = "hello"
     let content = "test"
     const rootDir = os.homedir();
-    const path = `${rootDir}/.node-red/pushbear/${req.params.id}`
+    const path = `${rootDir}/.node-red/pushbear/${req.params.date}/${req.params.id}`
     console.log(path)
     try{
       let data = await readAsync(path)
-      title = '111111'
+      let fileContent = JSON.parse(data)
+      title = fileContent.title
+      content = fileContent.content
     }catch(err) {
       title = '文件不存在'
       content = '请确认文件是否删除'
     }
-
 
     return `<!DOCTYPE html>
 <html lang="zh-cn">
