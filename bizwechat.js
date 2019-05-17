@@ -1,6 +1,8 @@
 const express = require('express')
+const router = express.Router();
 const WXBizMsgCrypt = require('wechat-crypto')
 const Xml2js = require('xml2js')
+const pushbearRouter = require('./pushbear');
 
 // 接收数据
 const receiveData = async (req) => new Promise(resolve => {
@@ -48,7 +50,8 @@ const getSendXML = (config, fromUsername, toUsername, msg) => {
 // 创建服务
 const createServer = (config, node, callback = () => {}) => {
   const app = express()
-  app.use('/', async (req, res) => {
+  
+  router.all('/', async (req, res, next) => {
     const method = req.method
     const sVerifyMsgSig = req.query.msg_signature
     const sVerifyTimeStamp = req.query.timestamp
@@ -78,6 +81,24 @@ const createServer = (config, node, callback = () => {}) => {
       callback(res, req, json_message)
     }
   })
+  app.use('/', router)
+  app.use('/pushbear', pushbearRouter)
+
+
+  app.use(function(req, res, next) {
+    next(createError(404));
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
   return app.listen(config.port, () => {
     node.status({
       text: `port: ${config.port}`,

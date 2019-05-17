@@ -17,7 +17,7 @@
     "nodes": {
       "bizwechat": "bizwechat.js",
       "bizwechat-configurator": "bizwechat-configurator.js"
-
+      
     }
   },
   "author": "FlashSoft",
