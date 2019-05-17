@@ -60,11 +60,11 @@ const pushMessage = async (config, bizwechat_config, msg) => new Promise(async (
 
     const homeDir = os.homedir();
     const date = new Date();
-    const _date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDay()}`
+    const _date = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
     const parentDir = `${homeDir}/.node-red/pushbear/${_date}`
     //创建缓存文件夹， ~/.node-red/pushbear
     mkdirs(parentDir)
-    const id = CryptoJS.MD5(date.getTime() + Math.random())
+    const id = CryptoJS.MD5(date.getTime() + "" +  Math.random()).toString()
     const title = msg.title || config.title || "消息提醒"
     if (!msg.title) {
       msg.title = config.title || "消息提醒"
