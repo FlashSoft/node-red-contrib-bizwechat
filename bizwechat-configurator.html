@@ -1,92 +1,92 @@
 <script type="text/javascript">
-RED.nodes.registerType('bizwechat-configurator', {
-  category: 'config',
-  label () {
-    return this.name || '默认企业微信配置'
-  },
-  defaults: {
-    name: {
-      value: ''
+  RED.nodes.registerType('bizwechat-configurator', {
+    category: 'config',
+    label () {
+      return this.name || '默认企业微信配置'
     },
-    port: {
-      value: '',
-      required: true
-    },
-    corpid: {
-      value: '',
-      required: true
-    },
-    agentid: {
-      value: '',
-      required: true
-    },
-    token: {
-      value: '',
-      required: true
-    },
-    corpsecret: {
-      value: '',
-      required: true
-    },
-    aeskey: {
-      value: '',
-      required: true
-    },
-    client_id:{
-      value:''
-    },
-    client_secret:{
-      value:''
+    defaults: {
+      name: {
+        value: ''
+      },
+      port: {
+        value: '',
+        required: true
+      },
+      corpid: {
+        value: '',
+        required: true
+      },
+      agentid: {
+        value: '',
+        required: true
+      },
+      token: {
+        value: '',
+        required: true
+      },
+      corpsecret: {
+        value: '',
+        required: true
+      },
+      aeskey: {
+        value: '',
+        required: true
+      },
+      client_id:{
+        value:''
+      },
+      client_secret:{
+        value:''
+      }
     }
-  }
-})
-</script>
-<script type="text/x-red" data-template-name="bizwechat-configurator">
-  <div class="form-row">
-    <label for="node-config-input-name"><i class="icon-tag"></i>名称</label>
-    <input type="text" id="node-config-input-name" placeholder="默认企业微信配置">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-port"><i></i>Port</label>
-    <input type="text" id="node-config-input-port" placeholder="本服务端口">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-corpid"><i></i>Corpid</label>
-    <input type="text" id="node-config-input-corpid" placeholder="微信企业ID">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-agentid"><i></i>Agentid</label>
-    <input type="text" id="node-config-input-agentid" placeholder="微信应用ID">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-corpsecret"><i></i>Secret</label>
-    <input type="text" id="node-config-input-corpsecret" placeholder="微信应用Secret">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-token"><i></i>Token</label>
-    <input type="text" id="node-config-input-token" placeholder="微信应用回调Token">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-aeskey"><i></i>EncAESKey</label>
-    <input type="text" id="node-config-input-aeskey" placeholder="微信应用回调EncodingAESKey">
-  </div>
-  <div class="form-row">
-    <label style="width: 100%; text-align: center; color: #ccc;">以下内容为开启语音转文字时选填</label>
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-client_id"><i></i>APIKey</label>
-    <input type="text" id="node-config-input-client_id" placeholder="百度语音应用API Key">
-  </div>
-  <div class="form-row">
-    <label for="node-config-input-client_secret"><i></i>SecretKey</label>
-    <input type="text" id="node-config-input-client_secret" placeholder="百度语音应用Secret Key">
-  </div>
-  <div class="form-row">
-    <label style="width: 100%;text-align: right;padding-right: 34px;box-sizing: border-box;" >
-      <a href="https://bbs.iobroker.cn/forum.php?mod=viewthread&tid=118" target="_blank">手摸手图文教程 (ioBroker中国|智能家居)提供</a>
-    </label>
-  </div>
-</script>
-<script type="text/x-red" data-help-name="bizwechat-configurator">
+  })
+  </script>
+  <script type="text/x-red" data-template-name="bizwechat-configurator">
+    <div class="form-row">
+      <label for="node-config-input-name"><i class="icon-tag"></i>名称</label>
+      <input type="text" id="node-config-input-name" placeholder="默认企业微信配置">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-port"><i></i>Port</label>
+      <input type="text" id="node-config-input-port" placeholder="本服务端口">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-corpid"><i></i>Corpid</label>
+      <input type="text" id="node-config-input-corpid" placeholder="微信企业ID">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-agentid"><i></i>Agentid</label>
+      <input type="text" id="node-config-input-agentid" placeholder="微信应用ID">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-corpsecret"><i></i>Secret</label>
+      <input type="text" id="node-config-input-corpsecret" placeholder="微信应用Secret">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-token"><i></i>Token</label>
+      <input type="text" id="node-config-input-token" placeholder="微信应用回调Token">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-aeskey"><i></i>EncAESKey</label>
+      <input type="text" id="node-config-input-aeskey" placeholder="微信应用回调EncodingAESKey">
+    </div>
+    <div class="form-row">
+      <label style="width: 100%; text-align: center; color: #ccc;">以下内容为开启语音转文字时选填</label>
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-client_id"><i></i>APIKey</label>
+      <input type="text" id="node-config-input-client_id" placeholder="百度语音应用API Key">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-client_secret"><i></i>SecretKey</label>
+      <input type="text" id="node-config-input-client_secret" placeholder="百度语音应用Secret Key">
+    </div>
+    <div class="form-row">
+      <label style="width: 100%;text-align: right;padding-right: 34px;box-sizing: border-box;" >
+        <a href="https://bbs.iobroker.cn/forum.php?mod=viewthread&tid=118" target="_blank">手摸手图文教程 (ioBroker中国|智能家居)提供</a>
+      </label>
+    </div>
+  </script>
+  <script type="text/x-red" data-help-name="bizwechat-configurator">
 
-</script>
+  </script>
