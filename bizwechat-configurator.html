@@ -12,6 +12,10 @@ RED.nodes.registerType('bizwechat-configurator', {
       value: '',
       required: true
     },
+    url: {
+      value: '',
+      required: true
+    },
     corpid: {
       value: '',
       required: true
@@ -49,6 +53,10 @@ RED.nodes.registerType('bizwechat-configurator', {
     <div class="form-row">
       <label for="node-config-input-port"><i></i>Port</label>
       <input type="text" id="node-config-input-port" placeholder="本服务端口">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-url"><i></i>Url</label>
+      <input type="text" id="node-config-input-url" placeholder="企业微信后台填写的地址">
     </div>
     <div class="form-row">
       <label for="node-config-input-corpid"><i></i>Corpid</label>
