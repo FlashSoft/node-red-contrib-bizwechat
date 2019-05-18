@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-bizwechat",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "企业微信消息接收转发至NodeRed",
   "main": "index.js",
   "repository": {
