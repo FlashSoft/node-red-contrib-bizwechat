@@ -2,11 +2,11 @@
 ----
 
 因为`Pushbear`遭到的很多人的滥用及无聊人士的举报，造成该服务将在五月底下线，对比表示非常伤心。  
-![图片](images/1.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/1.png)
 
 经过各位伙伴探索发现可以使用企业微信完美实现此想服务，经过[flashsoft 大佬](https://github.com/FlashSoft/)，[F 大佬](https://github.com/Lumy88)和[smarthomefans 组织](https://github.com/smarthomefans) 多日努力，发布`node-red-contrib-bizwechat 1.0.3` 版本，基本已经可以完美替代 `pushbear`  ，本教程由[iobroker首发](https://bbs.iobroker.cn/forum.php?mod=viewthread&tid=118&page=1&extra=#pid226)
 
-![图片](images/2.jpg)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/2.jpg)
 
 
 
@@ -29,19 +29,19 @@ node-red-contrib-bizwechat
 
 * 创建应用
 
-![图片](images/3.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/3.png)
 
-![图片](images/4.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/4.png)
 
 * 获取配置信息  
 直接进入应用里面可以获取到*AgentId* *Secret*  
-![图片](images/5.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/5.png)
 
 *接收消息* 模块中有*设置API接收*，用来设置企业微信请求的*URL* *Token* *EncodingAESKey*  
-![图片](images/6.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/6.png)
 
 *企业id* 在*我的企业*最下面可以找到  
-![图片](images/7.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/7.png)
 
 * 安装 node-red节点
 
@@ -60,13 +60,13 @@ node-red-contrib-bizwechat
 * bizwechat 配置信息
 一下信息可以从上面说明如何获取， 填写百度语音配置时，会自动把企业微信发过来的语音消息转换为文字，可以输出信息看一下
 
-![图片](images/8.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/8.png)
 
 * 测试服务状态   
 1. 访问你的机器`ip:节点里面的端口`， 出现一下界面表示服务正常   
 2. 访问你外网的地址，出现相同的界面表示外网访问也正常
 
-![图片](images/8.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/9.png)
 
 
 
