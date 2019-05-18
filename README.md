@@ -66,7 +66,8 @@ node-red-contrib-bizwechat
 1. 访问你的机器`ip:节点里面的端口`， 出现一下界面表示服务正常   
 2. 访问你外网的地址，出现相同的界面表示外网访问也正常
 
-**特别说明：如果你是通过路由器端口映射到内网这台机器端口的，放url请填写 域名：端口访问**
+**特别说明：如果你是通过路由器端口映射到内网这台机器端口的，放url请填写 域名:端口访问**
+**特别特别注意：这里的端口不是node-red的1880端口，而已你节点信息里面填写的端口**
 
 ![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/9.png)
 
