@@ -22,7 +22,8 @@ const getSendTemplate = async (req) => {
     const fileContent = JSON.parse(data)
     title = fileContent.title
     content = fileContent.description
-    time = fileContent.time
+    const _date = new Date(fileContent.time)
+    time = _date.toLocaleString()
   } catch (err) {
     title = '文件不存在'
     content = '请确认文件是否删除'
