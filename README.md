@@ -88,7 +88,7 @@ node-red-contrib-bizwechat
 找到*我的企业*里面的*微工作台*找到邀请关注，如下图：
 
 ![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/11.png)
-![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/12.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/12_1.png)
 
 
 范例流程
