@@ -37,11 +37,15 @@ node-red-contrib-bizwechat
 直接进入应用里面可以获取到*AgentId* *Secret*  
 ![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/5.png)
 
-*接收消息* 模块中有*设置API接收*，用来设置企业微信请求的*URL* *Token* *EncodingAESKey*  
-![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/6.png)
-
 *企业id* 在*我的企业*最下面可以找到  
 ![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/7.png)
+
+*接收消息* 模块中有*设置API接收*，用来设置企业微信请求的*URL* *Token* *EncodingAESKey*  
+
+**特别注意： 先把这些信息填写到node-red节点信息中， 然后才能验证通过此步**  
+**特别注意： 先把这些信息填写到node-red节点信息中， 然后才能验证通过此步**  
+**特别注意： 先把这些信息填写到node-red节点信息中， 然后才能验证通过此步**  
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/6.png)
 
 * 安装 node-red节点
 
@@ -66,12 +70,25 @@ node-red-contrib-bizwechat
 1. 访问你的机器`ip:节点里面的端口`， 出现一下界面表示服务正常   
 2. 访问你外网的地址，出现相同的界面表示外网访问也正常
 
-**特别说明：如果你是通过路由器端口映射到内网这台机器端口的，放url请填写 域名:端口访问**
+**特别说明：如果你是通过路由器端口映射到内网这台机器端口的，放url请填写 域名:端口访问**  
 **特别特别注意：这里的端口不是node-red的1880端口，而已你节点信息里面填写的端口**
 
 ![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/9.png)
 
 
+* 如何添加人到企业微信
+
+找到通讯录栏目，添加人员。 可以采用直接`微信邀请`或`添加成员方式`。  
+
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/10.png)
+
+
+* 如何使用微信接收消息  
+
+找到*我的企业*里面的*微工作台*找到邀请关注，如下图：
+
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/11.png)
+![图片](https://raw.githubusercontent.com/FlashSoft/node-red-contrib-bizwechat/master/images/12.png)
 
 
 范例流程
