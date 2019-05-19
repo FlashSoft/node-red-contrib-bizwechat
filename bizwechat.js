@@ -36,7 +36,7 @@ module.exports = RED => {
           try {
             const message = await wx.getMessage(req)
             console.log(`receive message: ${JSON.stringify(message)}`)
-            if (message.MsgType == 'voice') {
+            if (message.MsgType == 'voice' && biz_config.client_id && biz_config.client_id) {
               const amr = await wx.getMedia(message.MediaId)
               const asr = await bd.getAsr(amr)
               message.AsrContent = asr
