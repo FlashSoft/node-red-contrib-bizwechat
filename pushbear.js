@@ -1,12 +1,12 @@
 const express = require('express')
-const router = express.Router()
+const pushBearRouter = express.Router()
 
 const os = require('os')
 const fs = require('fs')
 const util = require('util')
 const readAsync = util.promisify(fs.readFile)
 
-router.get('/:date/:id', async (req, res, next) => {
+pushBearRouter.get('/:date/:id', async (req, res, next) => {
   const content = await getSendTemplate(req)
   res.status(200).end(content)
 })
@@ -123,5 +123,24 @@ const getSendTemplate = async (req) => {
 </html>`
 }
 
-module.exports = router
+const indexHtml = `<!DOCTYPE html>
+<html>
+<head>
+    <title>bizwechat</title>
+    <style>
+        body {padding: 50px;font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;}
+        a {color: #00B7FF;}
+    </style>
+</head>
+<body>
+    <h2>bizwechat(企业微信版本的pushbear)</h2>
+    <p>欢迎使用由 <a href="https://github.com/FlashSoft/">flashsoft 大佬 </a> ,<a href="https://github.com/Lumy88">F 大佬 </a> ,
+        <a href="https://github.com/smarthomefans">smarthomefans</a>
+        提供的企业微信版本的<strong>pushbear</strong>。如果你看到这个界面证明你已经安装成功了
+    </p>
+    <p>如需发现更多好玩的智能家居玩法<a href="https://bbs.iobroker.cn">请访问这里</a></p>
+</body>
+</html>`
+
+module.exports = {pushBearRouter, indexHtml}
 

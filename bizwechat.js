@@ -3,7 +3,7 @@ const express = require('express')
 
 const WeChat = require('./lib/WeChat')
 const Baidu = require('./lib/Baidu')
-const pushBearRouter = require('./pushbear')
+const {pushBearRouter, indexHtml} = require('./pushbear')
 
 module.exports = RED => {
   // 输入节点
@@ -29,7 +29,7 @@ module.exports = RED => {
           if (req.query.msg_signature == cryptor.getSignature(req.query.timestamp, req.query.nonce, sVerifyEchoStr)) {
             res.send(cryptor.decrypt(sVerifyEchoStr).message)
           } else {
-            res.send('服务正常')
+            res.status(200).send(indexHtml)
           }
         } else {
           // === 正常通讯消息 ==========
