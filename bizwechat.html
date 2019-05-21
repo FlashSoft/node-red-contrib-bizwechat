@@ -122,6 +122,57 @@ RED.nodes.registerType('bizwechat-pushbear', {
   </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-input">
+  <p>企业微信服务器节点，用于接收企业微信发过来的消息</p>
+  <p>接收到企业微信发布的消息必须在30s内回复，不然企业微信会重复发送三次防止失败</p>
+    <h3>输出</h3>
+    <dl class="message-properties">
+        <dt>config
+            <span class="property-type">object</span>
+        </dt>
+        <dd>服务器节点配置信息</dd>
+        <dt class="message-properties">message
+            <span class="property-type">object</span>
+        </dt>
+        <dd>企业微信发过来的消息</dd>
+        <dl class="message-properties">
+            <dt>ToUserName
+                <span class="property-type">string</span>
+            </dt>
+            <dd>接收者账号</dd>
+            <dt class="message-properties">FromUserName
+                <span class="property-type">string</span>
+            </dt>
+            <dd>发送人账号</dd>
+            <dt class="message-properties">CreateTime
+                <span class="property-type">long</span>
+            </dt>
+            <dd>发送时间</dd>
+            <dt class="message-properties">MsgType
+                <span class="property-type">string</span>
+            </dt>
+            <dd>消息类型</dd>
+            <dt class="message-properties">AgentID
+                <span class="property-type">long</span>
+            </dt>
+            <dd>应用id</dd>
+            <dd>消息类型</dd>
+            <dt class="message-properties">Event
+                <span class="property-type">long</span>
+            </dt>
+            <dd>事件类型</dd>
+    
+        </dl>
+        <dt class="message-properties">req
+            <span class="property-type">Object</span>
+        </dt>
+        <dd>http请求的request</dd>
+        <dt class="message-properties">res
+            <span class="property-type">Object</span>
+        </dt>
+        <dd>http请求的response</dd>
+
+    </dl>
+    
 </script>
 
 <script type="text/x-red" data-template-name="bizwechat-output">
@@ -135,6 +186,17 @@ RED.nodes.registerType('bizwechat-pushbear', {
   </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-output">
+  <p>回复企业微信发布的信息</p>
+    <h3>输入</h3>
+    <p>其余输入信息参考<strong>服务器节点的输出</strong>，此节点只能是服务器节点的后续节点，且中间处理流程不能影响<strong>msg.res</strong>,否则造成消息无法回复</p>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd>回复消息文本，文本为空即：'',则为响应企业微信</dd>
+       
+    </dl>
+    
 </script>
 
 <script type="text/x-red" data-template-name="bizwechat-pushbear">
@@ -160,4 +222,19 @@ RED.nodes.registerType('bizwechat-pushbear', {
   </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-pushbear">
+    <p>推送信息到企业微信，目前仅支持卡片类型的消息</p>
+    <h3>输入</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd>推送消息文本</dd>
+        <dt class="optional">touser <span class="property-type">string</span>
+        </dt>
+        <dd>消息接收的用户，多个可以使用|分开，例如：xxx|xxx|xxx,不填写默认推送所有人</dd>
+
+    </dl>
+    <h3>输出</h3>
+    <p>输入信心合并配置信息输出</p>
+
 </script>
