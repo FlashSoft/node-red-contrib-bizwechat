@@ -3,7 +3,7 @@ const express = require('express')
 
 const WeChat = require('./lib/WeChat')
 const Baidu = require('./lib/Baidu')
-const {pushBearRouter, indexHtml} = require('./pushbear')
+const { pushBearRouter, indexHtml } = require('./pushbear')
 
 module.exports = RED => {
   // 输入节点
@@ -44,6 +44,11 @@ module.exports = RED => {
             }
             node.status({ text: `${message.MsgType}(${message.MsgId})` })
             node.send({ res, req, config: biz_config, message })
+
+            setTimeout(() => {
+              node.status({ text: `4秒超时自动应答`, fill: 'red', shape: 'ring' })
+              res.end('')
+            }, 4000)
           } catch (err) {
             node.status({ text: err.message, fill: 'red', shape: 'ring' })
             node.warn(err)
@@ -104,7 +109,7 @@ module.exports = RED => {
           const wx = new WeChat(node, biz_config, cryptor)
 
           // 合并值,未细想
-          for (const key in config) { if (config[key] != '' && config[key ] != null) { data[key] = config[key] } }
+          for (const key in config) { if (config[key] != '' && config[key] != null) { data[key] = config[key] } }
           data.description = data.description || data.payload
           data.touser = data.touser || '@all'
           data.url = data.url || 'https://bbs.iobroker.cn'

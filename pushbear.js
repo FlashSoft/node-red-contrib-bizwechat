@@ -142,5 +142,5 @@ const indexHtml = `<!DOCTYPE html>
 </body>
 </html>`
 
-module.exports = {pushBearRouter, indexHtml}
+module.exports = { pushBearRouter, indexHtml }
 
