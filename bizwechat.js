@@ -46,9 +46,9 @@ module.exports = RED => {
             node.send({ res, req, config: biz_config, message })
 
             setTimeout(() => {
-              node.status({ text: `4秒超时自动应答`, fill: 'red', shape: 'ring' })
+              node.status({ text: `3秒超时自动应答`, fill: 'red', shape: 'ring' })
               res.end('')
-            }, 4000)
+            }, 3000)
           } catch (err) {
             node.status({ text: err.message, fill: 'red', shape: 'ring' })
             node.warn(err)
