@@ -164,14 +164,15 @@ module.exports = RED => {
       // console.log('out biz_config', biz_config)
 
       node.on('input', async data => {
-        const { payload , type} = data
+        const { payload , type, filename} = data
         const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
         const wx = new WeChat(node, biz_config, cryptor)
         
         try {
           // 上传临时素材
-          await wx.uploadMedia({ file: payload , type})
+          const result = await wx.uploadMedia({ file: payload , type, filename})
           node.status({ text: `上传成功:${data._msgid}` })
+          data.payload = result
           node.send(data)
         } catch (err) {
           node.status({ text: err.message, fill: 'red', shape: 'ring' })
