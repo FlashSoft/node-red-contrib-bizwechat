@@ -126,4 +126,58 @@ module.exports = RED => {
       })
     }
   })
+
+  // push
+  RED.nodes.registerType('bizwechat-push', class {
+    constructor (config) {
+      const node = this
+      RED.nodes.createNode(node, config)
+
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('out biz_config', biz_config)
+
+      node.on('input', async data => {
+        const { payload } = data
+        const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+        const wx = new WeChat(node, biz_config, cryptor)
+        
+        try {
+          // 发送用户自定义数据类型消息
+          await wx.pushMessage(payload)
+          node.status({ text: `发送成功:${data._msgid}` })
+          node.send(data)
+        } catch (err) {
+          node.status({ text: err.message, fill: 'red', shape: 'ring' })
+          node.warn(err)
+        }
+      })
+    }
+  })
+
+  // upload
+  RED.nodes.registerType('bizwechat-upload', class {
+    constructor (config) {
+      const node = this
+      RED.nodes.createNode(node, config)
+
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('out biz_config', biz_config)
+
+      node.on('input', async data => {
+        const { payload , type} = data
+        const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+        const wx = new WeChat(node, biz_config, cryptor)
+        
+        try {
+          // 上传临时素材
+          await wx.uploadMedia({ file: payload , type})
+          node.status({ text: `上传成功:${data._msgid}` })
+          node.send(data)
+        } catch (err) {
+          node.status({ text: err.message, fill: 'red', shape: 'ring' })
+          node.warn(err)
+        }
+      })
+    }
+  })
 }
