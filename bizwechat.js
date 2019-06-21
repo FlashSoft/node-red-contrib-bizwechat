@@ -46,9 +46,9 @@ module.exports = RED => {
             node.send({ res, req, config: biz_config, message })
 
             setTimeout(() => {
-              node.status({ text: `4秒超时自动应答`, fill: 'red', shape: 'ring' })
+              node.status({ text: `3秒超时自动应答`, fill: 'red', shape: 'ring' })
               res.end('')
-            }, 4000)
+            }, 3000)
           } catch (err) {
             node.status({ text: err.message, fill: 'red', shape: 'ring' })
             node.warn(err)
@@ -118,6 +118,61 @@ module.exports = RED => {
           await wx.pushbearMessage(data)
 
           node.status({ text: `发送成功:${data._msgid}` })
+          node.send(data)
+        } catch (err) {
+          node.status({ text: err.message, fill: 'red', shape: 'ring' })
+          node.warn(err)
+        }
+      })
+    }
+  })
+
+  // push
+  RED.nodes.registerType('bizwechat-push', class {
+    constructor (config) {
+      const node = this
+      RED.nodes.createNode(node, config)
+
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('out biz_config', biz_config)
+
+      node.on('input', async data => {
+        const { payload } = data
+        const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+        const wx = new WeChat(node, biz_config, cryptor)
+        
+        try {
+          // 发送用户自定义数据类型消息
+          await wx.pushMessage(payload)
+          node.status({ text: `发送成功:${data._msgid}` })
+          node.send(data)
+        } catch (err) {
+          node.status({ text: err.message, fill: 'red', shape: 'ring' })
+          node.warn(err)
+        }
+      })
+    }
+  })
+
+  // upload
+  RED.nodes.registerType('bizwechat-upload', class {
+    constructor (config) {
+      const node = this
+      RED.nodes.createNode(node, config)
+
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      // console.log('out biz_config', biz_config)
+
+      node.on('input', async data => {
+        const { payload , type, filename} = data
+        const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+        const wx = new WeChat(node, biz_config, cryptor)
+        
+        try {
+          // 上传临时素材
+          const result = await wx.uploadMedia({ file: payload , type, filename})
+          node.status({ text: `上传成功:${data._msgid}` })
+          data.payload = result
           node.send(data)
         } catch (err) {
           node.status({ text: err.message, fill: 'red', shape: 'ring' })
