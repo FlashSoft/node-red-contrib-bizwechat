@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-bizwechat",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "企业微信消息接收转发至NodeRed",
   "main": "index.js",
   "repository": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/FlashSoft/node-red-contrib-bizwechat#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": ">=0.18.1",
     "express": "^4.16.4",
     "marked": "^0.6.2",
     "mkdirp": "^0.5.1",
