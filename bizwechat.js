@@ -127,6 +127,35 @@ module.exports = RED => {
     }
   })
 
+  // 网页内容
+  RED.nodes.registerType('bizwechat-template', class {
+    constructor (config) {
+      const node = this
+      RED.nodes.createNode(node, config)
+      const biz_config = RED.nodes.getNode(config.bizwechat)
+      node.on('input', data => {
+        try {
+          const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
+          const wx = new WeChat(node, biz_config, cryptor)
+
+          // 合并值,未细想
+          for (const key in config) { if (config[key] != '' && config[key] != null) { data[key] = config[key] } }
+          data.description = data.description || data.payload
+
+          // 网页内容 存储
+          
+          wx.pushbearTemplate(data)
+
+          node.status({ text: `发送成功:${data._msgid}` })
+          node.send(data)
+        } catch (err) {
+          node.status({ text: err.message, fill: 'red', shape: 'ring' })
+          node.warn(err)
+        }
+      })
+    }
+  })
+
   // push
   RED.nodes.registerType('bizwechat-push', class {
     constructor (config) {
