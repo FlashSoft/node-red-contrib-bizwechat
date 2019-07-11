@@ -118,6 +118,33 @@ RED.nodes.registerType('bizwechat-pushbear', {
   outputs: 1,
   icon: 'white-globe.png'
 })
+
+RED.nodes.registerType('bizwechat-template', {
+  category: '企业微信',
+  color: '#7ac6cb',
+  paletteLabel: '推送网页内容',
+  label () {
+    return this.name || '推送网页内容'
+  },
+  defaults: {
+    name: {
+      value: ''
+    },
+    bizwechat: {
+      value: '',
+      type: 'bizwechat-configurator'
+    },
+    title: {
+      value: ''
+    },
+    description: {
+      value: ''
+    }
+  },
+  inputs: 1,
+  outputs: 1,
+  icon: 'white-globe.png'
+})
 </script>
 <script type="text/x-red" data-template-name="bizwechat-input">
   <div class="form-row">
@@ -308,4 +335,37 @@ RED.nodes.registerType('bizwechat-pushbear', {
     </dl>
     <h3>输出</h3>
     <p>企业微信返回信息完整返回</p>
+</script>
+
+<script type="text/x-red" data-template-name="bizwechat-template">
+  <div class="form-row">
+    <label for="node-input-bizwechat"><i class="icon-tag"></i>配置</label>
+    <input type="text" id="node-input-bizwechat">
+  </div>
+  <div class="form-row">
+    <label for="node-input-title"><i class="icon-tag"></i>标题</label>
+    <input type="text" id="node-input-title" placeholder="网页内容的标题">
+  </div>
+  <div class="form-row">
+    <label for="node-input-description"><i class="icon-tag"></i>内容</label>
+    <textarea id="node-input-description" placeholder="网页内容的文本(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
+  </div>
+</script>
+<script type="text/x-red" data-help-name="bizwechat-template">
+    <p>使用pushbear 存储推送信息详情</p>
+    <h3>输入</h3>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string</span>
+        </dt>
+        <dd>网页内容的文本</dd>
+        <dt class="optional">title <span class="property-type">string</span>
+        </dt>
+        <dd>网页内容的标题</dd>
+       
+
+    </dl>
+    <h3>输出</h3>
+    <p>原始内容里面添加网页的url</p>
+
 </script>
