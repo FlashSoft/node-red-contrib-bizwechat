@@ -114,7 +114,7 @@ const getSendTemplate = async (req) => {
     <div class="container">
       <p class="text-muted">本消息由 <a href="https://github.com/FlashSoft/node-red-contrib-bizwechat">bizwechat</a> <img
           src="https://pushbear.ftqq.com/assets/img/pbicon.png" width="16"> 为您投递，<a
-          href="https://bbs.iobroker.cn/">和大神一起玩智能家居</a></p>
+          href="https://bbs.iobroker.cn/">私人定制智能家居</a></p>
     </div>
   </footer>
 

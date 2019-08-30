@@ -143,7 +143,7 @@ module.exports = RED => {
           data.description = data.description || data.payload
 
           // 网页内容 存储
-          
+
           wx.pushbearTemplate(data)
 
           node.status({ text: `发送成功:${data._msgid}` })
@@ -169,7 +169,7 @@ module.exports = RED => {
         const { payload } = data
         const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
         const wx = new WeChat(node, biz_config, cryptor)
-        
+
         try {
           // 发送用户自定义数据类型消息
           await wx.pushMessage(payload)
@@ -193,13 +193,13 @@ module.exports = RED => {
       // console.log('out biz_config', biz_config)
 
       node.on('input', async data => {
-        const { payload , type, filename} = data
+        const { payload, type, filename } = data
         const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
         const wx = new WeChat(node, biz_config, cryptor)
-        
+
         try {
           // 上传临时素材
-          const result = await wx.uploadMedia({ file: payload , type, filename})
+          const result = await wx.uploadMedia({ file: payload, type, filename })
           node.status({ text: `上传成功:${data._msgid}` })
           data.payload = result
           node.send(data)
