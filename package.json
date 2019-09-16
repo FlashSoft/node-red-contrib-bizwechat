@@ -29,11 +29,11 @@
   "dependencies": {
     "axios": ">=0.18.1",
     "express": "^4.16.4",
-    "marked": "^0.6.2",
+    "form-data": "^2.4.0",
+    "marked": "^0.7.0",
     "mkdirp": "^0.5.1",
     "wechat-crypto": "0.0.2",
-    "xml2js": "^0.4.19",
-    "form-data": "^2.4.0"
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
