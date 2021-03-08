@@ -112,6 +112,9 @@ RED.nodes.registerType('bizwechat-pushbear', {
     },
     description: {
       value: ''
+    },
+    longPath: {
+      value: false
     }
   },
   inputs: 1,
@@ -139,6 +142,9 @@ RED.nodes.registerType('bizwechat-template', {
     },
     description: {
       value: ''
+    },
+    longPath: {
+      value: false
     }
   },
   inputs: 1,
@@ -255,6 +261,13 @@ RED.nodes.registerType('bizwechat-template', {
     <label for="node-input-description"><i class="icon-tag"></i>内容</label>
     <textarea id="node-input-description" placeholder="发送信息的内容(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
   </div>
+  <div class="form-row">
+    <label for="node-input-longPath"><i class="icon-tag"></i>长链接</label>
+    <input type="checkbox" style="width: 20px; " id="node-input-longPath"></input>
+    <label style="width: auto;text-align: right;padding-right: 12px;margin: 4px 0 0;" >
+      <a href="https://wx.zsxq.com/dweb2/index/group/51288182451214" target="_blank">勾选将会生成由小爱服务器穿透访问的长连接地址</a>
+    </label>
+  </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-pushbear">
     <p>推送信息到企业微信，目前仅支持卡片类型的消息</p>
@@ -349,6 +362,13 @@ RED.nodes.registerType('bizwechat-template', {
   <div class="form-row">
     <label for="node-input-description"><i class="icon-tag"></i>内容</label>
     <textarea id="node-input-description" placeholder="网页内容的文本(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
+  </div>
+  <div class="form-row">
+    <label for="node-input-longPath"><i class="icon-tag"></i>长链接</label>
+    <input type="checkbox" style="width: 20px; " id="node-input-longPath"></input>
+    <label style="width: auto;text-align: right;padding-right: 12px;margin: 4px 0 0;" >
+      <a href="https://wx.zsxq.com/dweb2/index/group/51288182451214" target="_blank">勾选将会生成由小爱服务器穿透访问的长连接地址</a>
+    </label>
   </div>
 </script>
 <script type="text/x-red" data-help-name="bizwechat-template">
