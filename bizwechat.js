@@ -166,11 +166,31 @@ module.exports = RED => {
       // console.log('out biz_config', biz_config)
 
       node.on('input', async data => {
-        const { payload } = data
+        const { payload, image, type, filename } = data
         const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
         const wx = new WeChat(node, biz_config, cryptor)
 
         try {
+          // 如果存在 image 属性，证明可能需要临时素材上传
+          // filename 如果不存在，随机生成
+          // type 默认为图片
+          
+          let mediaInfo
+          if (image && payload && (payload.msgtype === 'video' || payload.msgtype === 'mpnews')) {
+            const t = type || 'image'
+            const f = filename || `${new Date().toLocaleString()}-${(Math.random() * 100).toFixed()}.jpg`
+            mediaInfo = await wx.uploadMedia({ file: image, type: t, filename: f })
+            // console.log(mediaInfo)
+            if (payload.msgtype === 'video') {
+              if (payload && payload.video ) {
+                payload.video.media_id = mediaInfo.media_id
+              }
+            }else if(payload.msgtype === 'mpnews') {
+              if (payload && payload.mpnews && payload.mpnews.articles) {
+                payload.mpnews.articles.thumb_media_id = mediaInfo.media_id
+              }
+            }
+          }
           // 发送用户自定义数据类型消息
           await wx.pushMessage(payload)
           node.status({ text: `发送成功:${data._msgid}` })

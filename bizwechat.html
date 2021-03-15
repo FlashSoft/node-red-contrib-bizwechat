@@ -313,6 +313,24 @@ RED.nodes.registerType('bizwechat-template', {
         </dt>
         <dd>需要发送的信息</dd>
     </dl>
+    <dl class="message-properties">
+      <dt>image
+          <span class="property-type">object</span>
+      </dt>
+      <dd>临时媒体文件, 当使用高级节点时候，发现存在图片问下信息，将会自动上传，并把信息添加在对应消息体中，目前支持消息格式为： video 和mpnews</dd>
+    </dl>
+    <dl class="message-properties">
+      <dt> type
+        <span class="property-type">object</span>
+      </dt>
+      <dd> 文件类型，默认： image</dd>
+    </dl>
+    <dl class="message-properties">
+      <dt> filename
+          <span class="property-type">object</span>
+      </dt>
+      <dd>文件名称，默认： `${new Date().toLocaleString()}-${(Math.random() * 100).toFixed()}.jpg`</dd>
+    </dl>
     <h3>输出</h3>
     <p>企业微信返回信息完整返回</p>
 </script>
