@@ -30,7 +30,7 @@
     "axios": ">=0.18.1",
     "express": "^4.16.4",
     "form-data": "^2.4.0",
-    "marked": "^0.7.0",
+    "marked": "^4.0.10",
     "mkdirp": "^0.5.1",
     "wechat-crypto": "0.0.2",
     "xml2js": "^0.4.19"
