@@ -68,6 +68,11 @@ const getSendTemplate = async (req) => {
       /* Margin bottom by footer height */
       margin-bottom: 60px;
     }
+    
+    table td, table th {
+      border: 1px solid #dfe2e5;
+      padding: 6px 13px;
+    }
 
     .footer {
       position: absolute;
