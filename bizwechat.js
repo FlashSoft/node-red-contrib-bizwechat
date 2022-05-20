@@ -110,7 +110,7 @@ module.exports = RED => {
 
           // 合并值,未细想
           for (const key in config) { if (config[key] != '' && config[key] != null) { data[key] = config[key] } }
-          data.description = data.description || data.payload
+          data.description = data.payload || data.description
           data.touser = data.touser || '@all'
           data.url = data.url || 'https://bbs.iobroker.cn'
 
@@ -140,7 +140,7 @@ module.exports = RED => {
 
           // 合并值,未细想
           for (const key in config) { if (config[key] != '' && config[key] != null) { data[key] = config[key] } }
-          data.description = data.description || data.payload
+          data.description = data.payload || data.description
 
           // 网页内容 存储
 

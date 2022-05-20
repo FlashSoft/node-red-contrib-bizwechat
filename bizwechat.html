@@ -110,7 +110,7 @@ RED.nodes.registerType('bizwechat-pushbear', {
     title: {
       value: ''
     },
-    description: {
+    introduction: {
       value: ''
     },
     longPath: {
@@ -140,7 +140,7 @@ RED.nodes.registerType('bizwechat-template', {
     title: {
       value: ''
     },
-    description: {
+    introduction: {
       value: ''
     },
     longPath: {
@@ -258,8 +258,8 @@ RED.nodes.registerType('bizwechat-template', {
     <input type="text" id="node-input-title" placeholder="发送信息的标题">
   </div>
   <div class="form-row">
-    <label for="node-input-description"><i class="icon-tag"></i>内容</label>
-    <textarea id="node-input-description" placeholder="发送信息的内容(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
+    <label for="node-input-introduction"><i class="icon-tag"></i>描述</label>
+    <textarea id="node-input-introduction" placeholder="卡片上面的描述,用户一些从正文正提取信息不还好看的情况下" style="width: 70%; height:200px;"></textarea>
   </div>
   <div class="form-row">
     <label for="node-input-longPath"><i class="icon-tag"></i>长链接</label>
@@ -378,8 +378,8 @@ RED.nodes.registerType('bizwechat-template', {
     <input type="text" id="node-input-title" placeholder="网页内容的标题">
   </div>
   <div class="form-row">
-    <label for="node-input-description"><i class="icon-tag"></i>内容</label>
-    <textarea id="node-input-description" placeholder="网页内容的文本(MarkDown语法)" style="width: 70%; height:200px;"></textarea>
+    <label for="node-input-introduction"><i class="icon-tag"></i>描述</label>
+    <textarea id="node-input-introduction" placeholder="卡片上面的描述,用户一些从正文正提取信息不还好看的情况下" style="width: 70%; height:200px;"></textarea>
   </div>
   <div class="form-row">
     <label for="node-input-longPath"><i class="icon-tag"></i>长链接</label>
