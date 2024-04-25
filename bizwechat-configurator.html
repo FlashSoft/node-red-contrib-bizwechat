@@ -36,6 +36,9 @@ RED.nodes.registerType('bizwechat-configurator', {
       value: '',
       required: true
     },
+    proxyWx: {
+      value: '',
+    },
     client_id: {
       value: ''
     },
@@ -77,6 +80,10 @@ RED.nodes.registerType('bizwechat-configurator', {
     <div class="form-row">
       <label for="node-config-input-aeskey"><i></i>EncAESKey</label>
       <input type="text" id="node-config-input-aeskey" placeholder="微信应用回调EncodingAESKey">
+    </div>
+    <div class="form-row">
+      <label for="node-config-input-proxyWx"><i></i>企微代理</label>
+      <input type="text" id="node-config-input-proxyWx" placeholder="调用企微接口的代理服务地址,非必填">
     </div>
     <div class="form-row">
       <label style="width: 100%; text-align: center; color: #ccc;">以下内容为开启语音转文字时选填</label>
