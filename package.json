@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-bizwechat",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "企业微信消息接收转发至NodeRed",
   "main": "index.js",
   "repository": {
@@ -29,7 +29,7 @@
   "dependencies": {
     "axios": ">=0.18.1",
     "express": "^4.16.4",
-    "form-data": "^2.4.0",
+    "form-data": "^2.5.1",
     "marked": "^0.7.0",
     "mkdirp": "^0.5.1",
     "wechat-crypto": "0.0.2",

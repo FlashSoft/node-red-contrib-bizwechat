@@ -41,6 +41,9 @@ RED.nodes.registerType('bizwechat-configurator', {
     },
     client_secret: {
       value: ''
+    },
+    stt: {
+      value: ''
     }
   }
 })
@@ -88,6 +91,11 @@ RED.nodes.registerType('bizwechat-configurator', {
     <div class="form-row">
       <label for="node-config-input-client_secret"><i></i>SecretKey</label>
       <input type="text" id="node-config-input-client_secret" placeholder="百度语音应用Secret Key">
+    </div>
+
+    <div class="form-row">
+      <label for="node-config-input-stt"><i></i>stt 地址</label>
+      <input type="text" id="node-config-input-stt" placeholder="stt ip地址格式（http://ip:port/api）">
     </div>
     <div class="form-row">
       <label style="width: 100%;text-align: right;padding-right: 34px;box-sizing: border-box;" >

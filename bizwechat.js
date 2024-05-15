@@ -3,6 +3,7 @@ const express = require('express')
 
 const WeChat = require('./lib/WeChat')
 const Baidu = require('./lib/Baidu')
+const Stt = require('./lib/Stt')
 const { pushBearRouter, indexHtml } = require('./pushbear')
 
 module.exports = RED => {
@@ -18,6 +19,7 @@ module.exports = RED => {
       const cryptor = new WXBizMsgCrypt(biz_config.token, biz_config.aeskey, biz_config.corpid)
       const wx = new WeChat(node, biz_config, cryptor)
       const bd = new Baidu(node, biz_config)
+      const stt = new Stt(node, biz_config)
 
       const app = express()
 
@@ -41,14 +43,21 @@ module.exports = RED => {
               const asr = await bd.getAsr(amr)
               message.AsrContent = asr
               console.log(`asr result: ${asr}`)
+            }else if (message.MsgType == 'voice' && biz_config.stt) {
+              const startTime = new Date().getTime()
+              const amr = await wx.getMedia(message.MediaId)
+              const asr = await stt.getAsr(amr)
+              message.AsrContent = asr
+              message.AsrTime = new Date().getTime() - startTime
+              console.log(`asr result: ${asr} times: ${message.AsrTime}`)
             }
             node.status({ text: `${message.MsgType}(${message.MsgId})` })
             node.send({ res, req, config: biz_config, message })
 
             setTimeout(() => {
-              node.status({ text: `3秒超时自动应答`, fill: 'red', shape: 'ring' })
+              node.status({ text: `3.9秒超时自动应答`, fill: 'red', shape: 'ring' })
               res.end('')
-            }, 3000)
+            }, 3900)
           } catch (err) {
             node.status({ text: err.message, fill: 'red', shape: 'ring' })
             node.warn(err)
