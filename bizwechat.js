@@ -37,6 +37,10 @@ module.exports = RED => {
           // === 正常通讯消息 ==========
           try {
             const message = await wx.getMessage(req)
+            setTimeout(() => {
+              node.status({ text: `3.9秒超时自动应答`, fill: 'red', shape: 'ring' })
+              res.end('')
+            }, 3900)
             console.log(`receive message: ${JSON.stringify(message)}`)
             if (message.MsgType == 'voice' && biz_config.client_id && biz_config.client_id) {
               const amr = await wx.getMedia(message.MediaId)
@@ -54,10 +58,7 @@ module.exports = RED => {
             node.status({ text: `${message.MsgType}(${message.MsgId})` })
             node.send({ res, req, config: biz_config, message })
 
-            setTimeout(() => {
-              node.status({ text: `3.9秒超时自动应答`, fill: 'red', shape: 'ring' })
-              res.end('')
-            }, 3900)
+            
           } catch (err) {
             node.status({ text: err.message, fill: 'red', shape: 'ring' })
             node.warn(err)
